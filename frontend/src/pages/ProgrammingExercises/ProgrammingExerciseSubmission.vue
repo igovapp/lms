@@ -240,6 +240,7 @@ const updateCode = (submissionCode = '') => {
 }
 
 const updateBoilerPlate = () => {
+  return;
 	if (exercise.doc?.language == 'Python') {
 		boilerplate.value = `with open("stdin", "r") as f:\n    data = f.read()\n\ninputs = data.split() if len(data) else []\n\n# inputs is a list of strings\n# write your code below\n\n`
 	} else if (exercise.doc?.language == 'JavaScript') {
@@ -303,6 +304,10 @@ const submitCode = async () => {
 	createSubmission()
 }
 
+const normalizeNewlines  = (str) => {
+	return str.replace(/\r\n/g, '\n');
+}
+
 const runCode = async () => {
 	if (!exercise.doc?.test_cases?.length) return
 
@@ -320,7 +325,7 @@ const runCode = async () => {
 			output.value = result
 		}
 		let status =
-			result.trim() === test_case.expected_output.trim() ? 'Passed' : 'Failed'
+			normalizeNewlines(result.trim()) === normalizeNewlines(test_case.expected_output.trim()) ? 'Passed' : 'Failed'
 		testCases.value.push({
 			input: test_case.input,
 			output: result,
