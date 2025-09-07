@@ -34,31 +34,31 @@ export class Program {
     }
 
     static get isReadOnlySupported() {
-		return true
-	}
+        return true
+    }
 
     render() {
-		this.wrapper = document.createElement('div')
-		if (Object.keys(this.data).length) {
-			this.renderExercise(this.data.exercise)
-		} else {
-			this.renderModal()
-		}
-		return this.wrapper
-	}
+        this.wrapper = document.createElement('div')
+        if (Object.keys(this.data).length) {
+            this.renderExercise(this.data.exercise)
+        } else {
+            this.renderModal()
+        }
+        return this.wrapper
+    }
 
     renderModal() {
-		if (this.readOnly) {
-			return
-		}
-		const app = createApp(ProgrammingExerciseModal, {
+        if (this.readOnly) {
+            return
+        }
+        const app = createApp(ProgrammingExerciseModal, {
             onSave: (exercise: string) => {
-				this.data.exercise = exercise
-				this.renderExercise(exercise)
-			},
+                this.data.exercise = exercise
+                this.renderExercise(exercise)
+            },
         })
-		app.use(translationPlugin)
-		app.mount(this.wrapper)
+        app.use(translationPlugin)
+        app.mount(this.wrapper)
     }
 
     renderExercise(exercise: string) {
@@ -76,7 +76,7 @@ export class Program {
                 this.wrapper.innerHTML = `<iframe src="/lms/programming-exercises/${exercise}/submission/${submission}?fromLesson=1" class="w-full h-[900px] border rounded-md"></iframe>`
             })
             return
-        } 
+        }
         call("frappe.client.get_value", {
             doctype: 'LMS Programming Exercise',
             filters: {
@@ -91,13 +91,13 @@ export class Program {
             </div>`
             return
         })
-        
+
     }
 
     save() {
         if (!this.data.exercise) return {}
-		return {
-			exercise: this.data.exercise,
-		}
-	}
+        return {
+            exercise: this.data.exercise,
+        }
+    }
 }
