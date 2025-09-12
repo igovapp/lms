@@ -19,7 +19,7 @@ import SimpleImage from '@editorjs/simple-image'
 import Table from '@editorjs/table'
 import Plyr from 'plyr'
 import 'plyr/dist/plyr.css'
-import LaTexTool from 'editorjs-tool-latex';
+import LaTexTool from 'frappe-lms-latex-editor';
 
 const readOnlyMode = window.read_only_mode
 
@@ -111,6 +111,18 @@ export function htmlToText(html) {
 	return div.textContent || div.innerText || ''
 }
 
+class LMSLatextTool extends LaTexTool {
+	constructor({
+		data,
+		config,
+		api,
+		readOnly,
+		block,
+	}) {
+		super(data, config, api, readOnly, block)
+
+	}
+}
 
 export function getEditorTools() {
 	return {
@@ -163,7 +175,8 @@ export function getEditorTools() {
 				features: {
 					border: true,
 					stretch: true,
-					hideInput: true,
+					hideInput: readOnlyMode,
+					autoHideInput: true,
 				},
 			},
 		},
