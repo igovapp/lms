@@ -20,6 +20,7 @@ import Table from '@editorjs/table'
 import Plyr from 'plyr'
 import 'plyr/dist/plyr.css'
 import LaTexTool from 'frappe-lms-latex-editor';
+import MermaidTool from 'editorjs-mermaid';
 
 const readOnlyMode = window.read_only_mode
 
@@ -179,6 +180,12 @@ export function getEditorTools() {
 					autoHideInput: true,
 				},
 			},
+		},
+		mermaid: {
+			class: MermaidTool,
+			config: {
+				'theme': 'neutral'
+			}
 		},
 		embed: {
 			class: Embed,
