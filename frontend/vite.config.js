@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import path from 'path'
 import frappeui from 'frappe-ui/vite'
 import { VitePWA } from 'vite-plugin-pwa'
+import proxyOptions from './proxyOptions';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -62,6 +63,7 @@ export default defineConfig({
 	server: {
 		host: '0.0.0.0', // Accept connections from any network interface
 		allowedHosts: ['ps', 'fs', 'home'], // Explicitly allow this host
+		proxy: proxyOptions,
 	},
 	resolve: {
 		alias: {
