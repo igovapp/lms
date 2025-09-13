@@ -32,7 +32,7 @@ export default defineConfig({
 			},
 			workbox: {
 				cleanupOutdatedCaches: true,
-				maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+				maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
 			},
 			manifest: {
 				display: 'standalone',
