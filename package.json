@@ -16,14 +16,14 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/frappe/lms.git"
+    "url": "git+https://github.com/igovapp/lms.git"
   },
   "author": "Frappe",
   "license": "AGPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/frappe/lms/issues"
   },
-  "homepage": "https://github.com/frappe/lms#readme",
+  "homepage": "https://github.com/igovapp/lms#readme",
   "devDependencies": {
     "cypress": "^14.5.2",
     "cypress-file-upload": "^5.0.8",
