@@ -826,3 +826,9 @@ export const blockQuotesClick = () => {
 		})
 	})
 }
+
+export const decodeEntities = (encodedString) => {
+	const textarea = document.createElement('textarea')
+	textarea.innerHTML = encodedString
+	return textarea.value
+}

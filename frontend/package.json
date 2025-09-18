@@ -30,6 +30,7 @@
     "chart.js": "^4.4.1",
     "codemirror": "^6.0.1",
     "dayjs": "^1.11.6",
+    "dompurify": "^3.2.6",
     "editorjs-mermaid": "github:jbl2024/editorjs-mermaid",
     "feather-icons": "^4.28.0",
     "frappe-lms-latex-editor": "github:igovapp/frappe-lms-latex-editor",
