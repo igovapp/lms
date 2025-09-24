@@ -199,13 +199,13 @@ jinja = {
 	],
 	"filters": [],
 }
-## Specify the additional tabs to be included in the user profile page.
-## Each entry must be a subclass of lms.lms.plugins.ProfileTab
+# Specify the additional tabs to be included in the user profile page.
+# Each entry must be a subclass of lms.lms.plugins.ProfileTab
 # profile_tabs = []
 
-## Specify the extension to be used to control what scripts and stylesheets
-## to be included in lesson pages. The specified value must be be a
-## subclass of lms.plugins.PageExtension
+# Specify the extension to be used to control what scripts and stylesheets
+# to be included in lesson pages. The specified value must be be a
+# subclass of lms.plugins.PageExtension
 # lms_lesson_page_extension = None
 
 # lms_lesson_page_extensions = [
@@ -217,7 +217,7 @@ has_website_permission = {
 	"LMS Certificate": "lms.lms.doctype.lms_certificate.lms_certificate.has_website_permission",
 }
 
-## Markdown Macros for Lessons
+# Markdown Macros for Lessons
 lms_markdown_macro_renderers = {
 	"Exercise": "lms.plugins.exercise_renderer",
 	"Quiz": "lms.plugins.quiz_renderer",
@@ -251,3 +251,6 @@ add_to_apps_screen = [
 		"has_permission": "lms.lms.api.check_app_permission",
 	}
 ]
+
+# Automatically update python controller files with type annotations for this app.
+export_python_type_annotations = True
