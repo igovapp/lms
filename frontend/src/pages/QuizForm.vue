@@ -125,7 +125,6 @@
 			</div>
 		</div>
 	</div>
-
 	<Question v-model="showQuestionModal" :questionDetail="currentQuestion" v-model:quiz="quizDetails" :title="currentQuestion.question
 		? __('Edit the question')
 		: __('Add a new question')

@@ -32,14 +32,25 @@
 						class="text-base font-semibold text-ink-gray-9 mb-5 mt-5">
 						{{ __('Possibilities') }}
 					</div>
-					<div v-if="question.type == 'Choices'" class="grid grid-cols-2 gap-x-8 gap-y-4">
-						<div v-for="(item, n) in question.options" class="space-y-4 py-2">
-							<FormControl :label="__('Option') + ' ' + n" v-model="item.option"
-								:required="n <= 2 ? true : false" />
-							<FormControl :label="__('Explanation')" v-model="item.explanation" />
-							<FormControl :label="__('Correct Answer')" v-model="item.is_correct" type="checkbox" />
+					<!--Choice -->
+					<div v-if="question.type == 'Choices'">
+						<div class="grid grid-cols-2 gap-x-8 gap-y-4">
+							<div v-for="(item, n) in question.options" class="space-y-4 py-2">
+								<FormControl :label="__('Option') + ' ' + n" v-model="item.option"
+									:required="n <= 2 ? true : false" />
+								<FormControl :label="__('Explanation')" v-model="item.explanation" />
+								<FormControl :label="__('Correct Answer')" v-model="item.is_correct" type="checkbox" />
+							</div>
+
+						</div>
+						<div>
+							<Button variant="solid" @click="addOption(question)">
+								{{ __('Add Option') }}
+							</Button>
 						</div>
 					</div>
+
+
 					<div v-else-if="question.type == 'User Input'" class="grid grid-cols-2 gap-x-8 gap-y-4 py-2">
 						<div v-for="n in 4">
 							<FormControl :label="__('Possibility') + ' ' + n" v-model="question[`possibility_${n}`]"
@@ -195,6 +206,15 @@ const questionCreation = createResource({
 		}
 	},
 })
+
+const addOption = (question) => {
+	console.log(question.options)
+	question.options.push({
+		option: "",
+		is_correct: 0,
+		explanation: "",
+	})
+}
 
 const submitQuestion = () => {
 	if (props.questionDetail?.question) updateQuestion()
