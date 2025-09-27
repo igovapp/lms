@@ -1,111 +1,55 @@
 <template>
-	<Dialog
-		v-model="show"
-		:options="{
-			size: '5xl',
-		}"
-	>
+	<Dialog v-model="show" :options="{
+		size: '5xl',
+	}">
 		<template #body>
 			<div class="p-5 space-y-5">
 				<div class="text-lg font-semibold text-ink-gray-9 mb-5">
 					{{ __(props.title) }}
 				</div>
-				<div
-					v-if="!editMode"
-					class="flex items-center text-xs text-ink-gray-7 space-x-5"
-				>
-					<Switch
-						size="sm"
-						:label="__('Choose an existing question')"
-						v-model="chooseFromExisting"
-						class="!p-0"
-					/>
+				<div v-if="!editMode" class="flex items-center text-xs text-ink-gray-7 space-x-5">
+					<Switch size="sm" :label="__('Choose an existing question')" v-model="chooseFromExisting"
+						class="!p-0" />
 				</div>
 				<div v-if="!chooseFromExisting || editMode">
 					<div>
 						<label class="block text-xs text-ink-gray-5 mb-1">
 							{{ __('Question') }}
 						</label>
-						<TextEditor
-							:content="question.question"
-							@change="(val) => (question.question = val)"
-							:editable="true"
-							:fixedMenu="true"
-							editorClass="prose-sm max-w-none border-b border-x bg-surface-gray-2 rounded-b-md py-1 px-2 min-h-[7rem]"
-						/>
+						<TextEditor :content="question.question" @change="(val) => (question.question = val)"
+							:editable="true" :fixedMenu="true"
+							editorClass="prose-sm max-w-none border-b border-x bg-surface-gray-2 rounded-b-md py-1 px-2 min-h-[7rem]" />
 					</div>
 					<div class="grid grid-cols-2 gap-8 mt-4">
-						<FormControl
-							v-model="question.marks"
-							:label="__('Marks')"
-							type="number"
-						/>
-						<FormControl
-							:label="__('Type')"
-							v-model="question.type"
-							type="select"
-							:options="['Choices', 'User Input', 'Open Ended']"
-							class="pb-2"
-							:required="true"
-						/>
+						<FormControl v-model="question.marks" :label="__('Marks')" type="number" />
+						<FormControl :label="__('Type')" v-model="question.type" type="select"
+							:options="['Choices', 'User Input', 'Open Ended']" class="pb-2" :required="true" />
 					</div>
-					<div
-						v-if="question.type == 'Choices'"
-						class="text-base font-semibold text-ink-gray-9 mb-5 mt-10"
-					>
+					<div v-if="question.type == 'Choices'" class="text-base font-semibold text-ink-gray-9 mb-5 mt-10">
 						{{ __('Options') }}
 					</div>
-					<div
-						v-else-if="question.type == 'User Input'"
-						class="text-base font-semibold text-ink-gray-9 mb-5 mt-5"
-					>
+					<div v-else-if="question.type == 'User Input'"
+						class="text-base font-semibold text-ink-gray-9 mb-5 mt-5">
 						{{ __('Possibilities') }}
 					</div>
-					<div
-						v-if="question.type == 'Choices'"
-						class="grid grid-cols-2 gap-x-8 gap-y-4"
-					>
-						<div v-for="n in 4" class="space-y-4 py-2">
-							<FormControl
-								:label="__('Option') + ' ' + n"
-								v-model="question[`option_${n}`]"
-								:required="n <= 2 ? true : false"
-							/>
-							<FormControl
-								:label="__('Explanation')"
-								v-model="question[`explanation_${n}`]"
-							/>
-							<FormControl
-								:label="__('Correct Answer')"
-								v-model="question[`is_correct_${n}`]"
-								type="checkbox"
-							/>
+					<div v-if="question.type == 'Choices'" class="grid grid-cols-2 gap-x-8 gap-y-4">
+						<div v-for="(item, n) in question.options" class="space-y-4 py-2">
+							<FormControl :label="__('Option') + ' ' + n" v-model="item.option"
+								:required="n <= 2 ? true : false" />
+							<FormControl :label="__('Explanation')" v-model="item.explanation" />
+							<FormControl :label="__('Correct Answer')" v-model="item.is_correct" type="checkbox" />
 						</div>
 					</div>
-					<div
-						v-else-if="question.type == 'User Input'"
-						class="grid grid-cols-2 gap-x-8 gap-y-4 py-2"
-					>
+					<div v-else-if="question.type == 'User Input'" class="grid grid-cols-2 gap-x-8 gap-y-4 py-2">
 						<div v-for="n in 4">
-							<FormControl
-								:label="__('Possibility') + ' ' + n"
-								v-model="question[`possibility_${n}`]"
-								:required="n == 1 ? true : false"
-							/>
+							<FormControl :label="__('Possibility') + ' ' + n" v-model="question[`possibility_${n}`]"
+								:required="n == 1 ? true : false" />
 						</div>
 					</div>
 				</div>
 				<div v-else-if="chooseFromExisting" class="space-y-2">
-					<Link
-						v-model="existingQuestion.question"
-						:label="__('Select a question')"
-						doctype="LMS Question"
-					/>
-					<FormControl
-						v-model="existingQuestion.marks"
-						:label="__('Marks')"
-						type="number"
-					/>
+					<Link v-model="existingQuestion.question" :label="__('Select a question')" doctype="LMS Question" />
+					<FormControl v-model="existingQuestion.marks" :label="__('Marks')" type="number" />
 				</div>
 				<div class="flex items-center justify-end space-x-2 mt-5">
 					<Button variant="solid" @click="submitQuestion()">
@@ -145,6 +89,17 @@ const question = reactive({
 	question: '',
 	type: 'Choices',
 	marks: 1,
+	options:
+		[{
+			option: '',
+			is_correct: false,
+			explanation: ''
+		}, {
+			option: '',
+			is_correct: false,
+			explanation: ''
+		}]
+
 })
 
 const populateFields = () => {

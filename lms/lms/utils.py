@@ -1445,7 +1445,8 @@ def get_question_details(question):
 		fields.append(f"option_{i}")
 		fields.append(f"explanation_{i}")
 
-	question_details = frappe.db.get_value("LMS Question", question, fields, as_dict=1)
+	question_details = frappe.get_doc("LMS Question", question)
+	question_details.load_from_db()
 	return question_details
 
 

@@ -12,26 +12,8 @@
   "question",
   "type",
   "multiple",
-  "section_break_ytxi",
-  "option_1",
-  "is_correct_1",
-  "column_break_fpvl",
-  "explanation_1",
-  "section_break_eiaa",
-  "option_2",
-  "is_correct_2",
-  "column_break_akwy",
-  "explanation_2",
-  "section_break_cwqv",
-  "option_3",
-  "is_correct_3",
-  "column_break_atpl",
-  "explanation_3",
-  "section_break_yqel",
-  "option_4",
-  "is_correct_4",
-  "column_break_lknb",
-  "explanation_4",
+  "section_break_ibhu",
+  "options",
   "section_break_hkfe",
   "possibility_1",
   "possibility_3",
@@ -52,108 +34,6 @@
    "in_list_view": 1,
    "label": "Type",
    "options": "Choices\nUser Input\nOpen Ended"
-  },
-  {
-   "depends_on": "eval:doc.type == \"Choices\";",
-   "fieldname": "section_break_ytxi",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "option_1",
-   "fieldtype": "Small Text",
-   "label": "Option 1",
-   "mandatory_depends_on": "eval: doc.type == 'Choices'"
-  },
-  {
-   "default": "0",
-   "fieldname": "is_correct_1",
-   "fieldtype": "Check",
-   "label": "Is Correct"
-  },
-  {
-   "fieldname": "column_break_fpvl",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "explanation_1",
-   "fieldtype": "Small Text",
-   "label": "Explanation"
-  },
-  {
-   "depends_on": "eval:doc.type == \"Choices\";",
-   "fieldname": "section_break_eiaa",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "option_2",
-   "fieldtype": "Small Text",
-   "label": "Option 2",
-   "mandatory_depends_on": "eval: doc.type == 'Choices'"
-  },
-  {
-   "default": "0",
-   "fieldname": "is_correct_2",
-   "fieldtype": "Check",
-   "label": "Is Correct"
-  },
-  {
-   "fieldname": "column_break_akwy",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "explanation_2",
-   "fieldtype": "Small Text",
-   "label": "Explanation "
-  },
-  {
-   "depends_on": "eval: doc.type == 'Choices'",
-   "fieldname": "section_break_cwqv",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "option_3",
-   "fieldtype": "Small Text",
-   "label": "Option 3"
-  },
-  {
-   "default": "0",
-   "fieldname": "is_correct_3",
-   "fieldtype": "Check",
-   "label": "Is Correct"
-  },
-  {
-   "fieldname": "column_break_atpl",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "explanation_3",
-   "fieldtype": "Small Text",
-   "label": "Explanation"
-  },
-  {
-   "depends_on": "eval: doc.type == 'Choices'",
-   "fieldname": "section_break_yqel",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "option_4",
-   "fieldtype": "Small Text",
-   "label": "Option 4"
-  },
-  {
-   "default": "0",
-   "fieldname": "is_correct_4",
-   "fieldtype": "Check",
-   "label": "Is Correct"
-  },
-  {
-   "fieldname": "column_break_lknb",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "explanation_4",
-   "fieldtype": "Small Text",
-   "label": "Explanation"
   },
   {
    "default": "0",
@@ -191,12 +71,23 @@
    "fieldname": "possibility_4",
    "fieldtype": "Small Text",
    "label": "Possible Answer 4"
+  },
+  {
+   "fieldname": "section_break_ibhu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "options",
+   "fieldtype": "Table",
+   "label": "Options",
+   "options": "LMS Question Option",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2024-10-07 09:41:17.862774",
+ "modified": "2025-09-24 12:46:28.912259",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "LMS Question",
@@ -240,6 +131,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

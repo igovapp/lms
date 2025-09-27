@@ -117,6 +117,8 @@ def quiz_summary(quiz, results):
 		as_dict=1,
 	)
 
+	print("quiz result",results)
+
 	data = process_results(results, quiz_details)
 	results = data["results"]
 	score = data["score"]
@@ -154,11 +156,19 @@ def process_results(results, quiz_details):
 		result["question"] = question_details.question_detail
 		result["marks_out_of"] = question_details.marks
 
+		options = frappe.db.get_all(
+			"LMS Question Option",filters={"parent" : question_details.question},
+			fields="*",order_by="idx asc"
+
+		)
+
+		print(options)
 		if question_details.type != "Open Ended":
 			if len(result["is_correct"]) > 0:
-				correct = result["is_correct"][0]
-				for point in result["is_correct"]:
-					correct = correct and point
+				correct = result["is_correct"][0] == options[0]['is_correct']
+				for index,(point,option) in enumerate(zip(result["is_correct"],options)):
+					print(option)
+					correct = correct and point == option['is_correct']
 				result["is_correct"] = correct
 			else:
 				result["is_correct"] = 0
@@ -278,18 +288,16 @@ def check_answer(question, type, answers):
 
 
 def check_choice_answers(question, answers):
-	fields = ["multiple"]
+
 	is_correct = []
-	for num in range(1, 5):
-		fields.append(f"option_{cstr(num)}")
-		fields.append(f"is_correct_{cstr(num)}")
 
-	question_details = frappe.db.get_value("LMS Question", question, fields, as_dict=1)
+	question_details = frappe.get_doc("LMS Question", question)
+	question_details.load_from_db()
 
-	for num in range(1, 5):
-		if question_details[f"option_{num}"] in answers:
-			is_correct.append(question_details[f"is_correct_{num}"])
-		elif question_details[f"is_correct_{num}"]:
+	for option in question_details.options:
+		if option.option in answers:
+			is_correct.append(option.is_correct)
+		elif option.is_correct:
 			is_correct.append(2)
 		else:
 			is_correct.append(0)
