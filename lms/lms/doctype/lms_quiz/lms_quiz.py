@@ -172,15 +172,13 @@ def process_results(results, quiz_details):
 			2 = notcheck correct
 			'''
 			def test(x,y) :
-
-				if x == -1 and y == 1 :
-					return False
-				elif x == 0 and y == 1 :
-					return False
-				elif x == 1 and y == 1 :
+				if x == 1 and y == 1 :
 					return True
 				elif x == 2 and y == 0 :
 					return True
+
+				return False
+
 
 			if len(result["is_correct"]) > 0:
 				correct = test(result["is_correct"][0],options[0]['is_correct'])
@@ -306,19 +304,27 @@ def check_answer(question, type, answers):
 
 
 def check_choice_answers(question, answers):
-
+	'''
+ 	-1 = NonCheck Wrong
+	1 = Check Correct
+	0 = Check Wrong
+	2 = NonCheck Correct
+	'''
 	is_correct = []
 
 	question_details = frappe.get_doc("LMS Question", question)
 	question_details.load_from_db()
 
 	for option in question_details.options:
-		if option.option in answers:
-			is_correct.append(option.is_correct)
-		elif option.is_correct:
-			is_correct.append(2)
-		else:
+		if option.option in answers and option.is_correct:
+			is_correct.append(1)
+		elif option.is_correct and option.option not in answers :
+			is_correct.append(-1)
+		elif not option.is_correct and option.option in answers :
 			is_correct.append(0)
+		else :
+			is_correct.append(2)
+
 
 	return is_correct
 

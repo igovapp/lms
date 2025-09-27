@@ -131,6 +131,7 @@
 									<MinusCircle v-else-if="answer == 2" class="w-4 h-4 text-ink-green-2" />
 									<XCircle v-else-if="answer == 0" class="w-4 h-4 text-ink-red-3" />
 									<MinusCircle v-else class="w-4 h-4" />
+
 								</div>
 							</div>
 							<span class="ml-2" v-html="item.option">
@@ -491,35 +492,15 @@ const checkAnswer = () => {
 			let type = questionDetails.data.type
 			if (type == 'Choices') {
 				console.log('checkanswer questionDetails', questionDetails);
-				showAnswers.splice(0, showAnswers.length, ...Array(questionDetails.data.options.length).fill(0))
+				showAnswers.splice(0, showAnswers.length, ...data)
 				console.log('checkanswer showAnswers', showAnswers);
 				console.log('checkanswer selectedOptions', selectedOptions);
 				console.log('checkanswer data', data);
 
-				showAnswers.forEach((option, index) => {
-					console.log('checkanswer', option, data[index], showAnswers)
-
-					if (selectedOptions[index] == 1) {
-						if (data[index] == 1) {
-							showAnswers[index] = 1
-						} else {
-							showAnswers[index] = 0
-						}
-
-					} else {
-						if (data[index] == 2) {
-							showAnswers[index] = 0
-						} else if (data[index] == 1) {
-							showAnswers[index] == -1
-						}
-						else {
-							showAnswers[index] = 2
-						}
-
-					}
-
-
-				})
+				// showAnswers.forEach((option, index) => {
+				// 	console.log('checkanswer', option, data[index], showAnswers)
+				// 	showAnswers[index] = deta[index]
+				// })
 				// showAnswers[0] = 0 // check , wrong
 				// showAnswers[3] = -1 // not check , wrong
 				// showAnswers[1] = 1 // check , correct
