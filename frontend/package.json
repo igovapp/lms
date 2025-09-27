@@ -35,7 +35,7 @@
     "editorjs-tool-latex": "^2.3.1",
     "feather-icons": "^4.28.0",
     "frappe-lms-latex-editor": "github:igovapp/frappe-lms-latex-editor",
-    "frappe-ui": "0.1.173",
+    "frappe-ui": "^0.1.200",
     "highlight.js": "^11.11.1",
     "lucide-vue-next": "^0.383.0",
     "markdown-it": "^14.0.0",
