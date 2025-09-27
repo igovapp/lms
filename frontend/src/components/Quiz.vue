@@ -490,18 +490,43 @@ const checkAnswer = () => {
 		onSuccess(data) {
 			let type = questionDetails.data.type
 			if (type == 'Choices') {
-				console.log(questionDetails);
+				console.log('checkanswer questionDetails', questionDetails);
 				showAnswers.splice(0, showAnswers.length, ...Array(questionDetails.data.options.length).fill(0))
-				console.log(showAnswers);
-				selectedOptions.forEach((option, index) => {
-					if (option) {
-						showAnswers[index] = option && data[index]
-					} else if (data[index] == 2) {
-						showAnswers[index] = 2
+				console.log('checkanswer showAnswers', showAnswers);
+				console.log('checkanswer selectedOptions', selectedOptions);
+				console.log('checkanswer data', data);
+
+				showAnswers.forEach((option, index) => {
+					console.log('checkanswer', option, data[index], showAnswers)
+
+					if (selectedOptions[index] == 1) {
+						if (data[index] == 1) {
+							showAnswers[index] = 1
+						} else {
+							showAnswers[index] = 0
+						}
+
 					} else {
-						showAnswers[index] = 0
+						if (data[index] == 2) {
+							showAnswers[index] = 0
+						} else if (data[index] == 1) {
+							showAnswers[index] == -1
+						}
+						else {
+							showAnswers[index] = 2
+						}
+
 					}
+
+
 				})
+				// showAnswers[0] = 0 // check , wrong
+				// showAnswers[3] = -1 // not check , wrong
+				// showAnswers[1] = 1 // check , correct
+				// showAnswers[2] = 2 // not check , correct
+
+
+				console.log('checkanswer showAnswers', showAnswers);
 			} else {
 				showAnswers.push(data)
 			}

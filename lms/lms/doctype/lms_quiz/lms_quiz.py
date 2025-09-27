@@ -164,11 +164,29 @@ def process_results(results, quiz_details):
 
 		print(options)
 		if question_details.type != "Open Ended":
+
+			'''
+			-1 = notcheck wrong
+			0 = check wrong
+			1 = check correct
+			2 = notcheck correct
+			'''
+			def test(x,y) :
+
+				if x == -1 and y == 1 :
+					return False
+				elif x == 0 and y == 1 :
+					return False
+				elif x == 1 and y == 1 :
+					return True
+				elif x == 2 and y == 0 :
+					return True
+
 			if len(result["is_correct"]) > 0:
-				correct = result["is_correct"][0] == options[0]['is_correct']
+				correct = test(result["is_correct"][0],options[0]['is_correct'])
 				for index,(point,option) in enumerate(zip(result["is_correct"],options)):
 					print(option)
-					correct = correct and point == option['is_correct']
+					correct = correct and test(point,option['is_correct'])
 				result["is_correct"] = correct
 			else:
 				result["is_correct"] = 0
