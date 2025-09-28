@@ -25,7 +25,7 @@
 						<FormControl :label="__('Type')" v-model="question.type" type="select"
 							:options="['Choices', 'User Input', 'Open Ended']" class="pb-2" :required="true" />
 					</div>
-					<div v-if="question.type == 'Choices'" class="text-base font-semibold text-ink-gray-9 mb-5 mt-10">
+					<div v-if="question.type == 'Choices'" class="text-base font-semibold text-ink-gray-9 mb-5 mt-5">
 						{{ __('Options') }}
 					</div>
 					<div v-else-if="question.type == 'User Input'"
@@ -36,12 +36,16 @@
 					<div v-if="question.type == 'Choices'">
 						<div class="grid grid-cols-2 gap-x-8 gap-y-4">
 							<div v-for="(item, n) in question.options" class="space-y-4 py-2">
-								<FormControl :label="__('Option') + ' ' + n" v-model="item.option"
-									:required="n <= 2 ? true : false" />
+
+								<FormControl :label="__('Option') + ' ' + n" v-model="item.option" :required="true" />
+
 								<FormControl :label="__('Explanation')" v-model="item.explanation" />
 								<FormControl :label="__('Correct Answer')" v-model="item.is_correct" type="checkbox" />
-							</div>
+								<br />
+								<span @click="removeOption(question, item)"
+									class="text-sm text-red-500 cursor-pointer">{{ __("Remove Option") }}</span>
 
+							</div>
 						</div>
 						<div>
 							<Button variant="solid" @click="addOption(question)">
@@ -216,7 +220,9 @@ const questionCreation = createResource({
 		}
 	},
 })
-
+const removeOption = (question, option) => {
+	question.options.splice(question.options.indexOf(option), 1)
+}
 const addOption = (question) => {
 	console.log(question.options)
 	question.options.push({
