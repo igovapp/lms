@@ -13,13 +13,7 @@
   "type",
   "multiple",
   "section_break_ibhu",
-  "options",
-  "section_break_hkfe",
-  "possibility_1",
-  "possibility_3",
-  "column_break_wpjr",
-  "possibility_2",
-  "possibility_4"
+  "options"
  ],
  "fields": [
   {
@@ -43,36 +37,6 @@
    "label": "Multiple Correct Answers"
   },
   {
-   "depends_on": "eval: doc.type == 'User Input'",
-   "fieldname": "section_break_hkfe",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "column_break_wpjr",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "possibility_1",
-   "fieldtype": "Small Text",
-   "label": "Possible Answer 1",
-   "mandatory_depends_on": "eval: doc.type == 'User Input'"
-  },
-  {
-   "fieldname": "possibility_3",
-   "fieldtype": "Small Text",
-   "label": "Possible Answer 3"
-  },
-  {
-   "fieldname": "possibility_2",
-   "fieldtype": "Small Text",
-   "label": "Possible Answer 2"
-  },
-  {
-   "fieldname": "possibility_4",
-   "fieldtype": "Small Text",
-   "label": "Possible Answer 4"
-  },
-  {
    "fieldname": "section_break_ibhu",
    "fieldtype": "Section Break"
   },
@@ -87,7 +51,7 @@
  "index_web_pages_for_search": 1,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2025-09-24 12:46:28.912259",
+ "modified": "2025-09-28 16:25:39.554358",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "LMS Question",

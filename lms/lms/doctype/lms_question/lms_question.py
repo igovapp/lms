@@ -20,10 +20,6 @@ class LMSQuestion(Document):
 
         multiple: DF.Check
         options: DF.Table[LMSQuestionOption]
-        possibility_1: DF.SmallText | None
-        possibility_2: DF.SmallText | None
-        possibility_3: DF.SmallText | None
-        possibility_4: DF.SmallText | None
         question: DF.TextEditor | None
         type: DF.Literal["Choices", "User Input", "Open Ended"]
     # end: auto-generated types
@@ -72,18 +68,14 @@ def validate_minimum_options(question : LMSQuestion):
 
 
 def validate_possible_answer(question):
-    possible_answers = []
-    possible_answers_fields = [
-        "possibility_1",
-        "possibility_2",
-        "possibility_3",
-        "possibility_4",
-    ]
-
-    for field in possible_answers_fields:
-        if question.get(field):
-            possible_answers.append(field)
-
+    possible_answers = [option.option for option in question.options]
+    print(possible_answers)
+    if any([answer == '' or answer is None for answer in possible_answers]) :
+        frappe.throw(
+            _("Possible Answer option should not be blank for this question {0}").format(
+                frappe.bold(question.question)
+            )
+        )
     if not len(possible_answers):
         frappe.throw(
             _("Add at least one possible answer for this question: {0}").format(

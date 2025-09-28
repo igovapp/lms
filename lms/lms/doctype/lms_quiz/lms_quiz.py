@@ -163,7 +163,7 @@ def process_results(results, quiz_details):
 		)
 
 		print(options)
-		if question_details.type != "Open Ended":
+		if question_details.type == "Choices":
 
 			'''
 			-1 = notcheck wrong
@@ -196,14 +196,26 @@ def process_results(results, quiz_details):
 
 			result["marks"] = marks
 			score += marks
+		elif question_details.type == "User Input" :
+			if len(result['is_correct']) ==1 :
+				correct = result["is_correct"][0]
+			else :
+				correct = 0
 
+			result["is_correct"] = correct
+			if correct:
+				marks = question_details.marks
+			else:
+				marks = -quiz_details.marks_to_cut if quiz_details.enable_negative_marking else 0
+			result["marks"] = marks
+			score += marks
 		else:
 			is_open_ended = True
 			result["is_correct"] = 0
 			result["answer"] = re.sub(
 				r'<img[^>]*src\s*=\s*["\'](?=data:)(.*?)["\']', _save_file, result["answer"]
 			)
-
+	print("result",result)
 	return {
 		"results": results,
 		"score": score,
@@ -299,6 +311,8 @@ def check_answer(question, type, answers):
 	answers = json.loads(answers)
 	if type == "Choices":
 		return check_choice_answers(question, answers)
+	elif type == "User Input" :
+		return check_input_answers(question, answers[0])
 	else:
 		return check_input_answers(question, answers[0])
 
@@ -331,12 +345,12 @@ def check_choice_answers(question, answers):
 
 def check_input_answers(question, answer):
 	fields = []
-	for num in range(1, 5):
-		fields.append(f"possibility_{cstr(num)}")
 
-	question_details = frappe.db.get_value("LMS Question", question, fields, as_dict=1)
-	for num in range(1, 5):
-		current_possibility = question_details[f"possibility_{num}"]
+	question_details = frappe.get_doc("LMS Question", question)
+	question_details.load_from_db()
+
+	for option in question_details.options:
+		current_possibility = option.option
 		if current_possibility and fuzz.token_sort_ratio(current_possibility, answer) > 85:
 			return 1
 
